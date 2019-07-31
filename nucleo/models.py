@@ -1,0 +1,112 @@
+from django.db import models
+from rope.settings import AUTH_USER_MODEL
+
+# Crie seus models aqui
+class Materia(models.Model):
+
+    """
+        Esse model aqui tá estranho. Apesar de estar de acordo com o modelo, acho que seria o campo "id_usuario_responsavel" 
+        o usuário que criou essa matéria. Temos que dar uma analisada.
+    """
+
+    nome = models.CharField(max_length=255)
+    area_de_conhecimento = models.CharField(max_length=50)
+
+    # Datas
+    id_usuario_responsavel = models.IntegerField()
+    data_criacao = models.DateTimeField(auto_now_add=True)
+
+    # Relacionamentos
+    usuarios = models.ManyToManyField(AUTH_USER_MODEL)
+
+    class Meta:
+        verbose_name = "materia"
+        verbose_name_plural = "materias"
+
+    def __str__(self):
+        return self.nome
+
+
+class Publicacao(models.Model):
+
+    titulo = models.CharField(max_length=255)
+    conteudo = models.TextField() # Ajeitar o editor aqui
+    tags = models.CharField(max_length=255)
+
+    #Chaves estrangeiras
+    usuario_email = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    materia_id = models.ForeignKey("Materia", on_delete=models.CASCADE)
+
+    #Datas
+    criado_em = models.DateTimeField(auto_now_add=True)
+    atualizado_em = models.TimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "publicacao"
+        verbose_name_plural = "publicacoes"
+
+    def __str__(self):
+        return self.titulo
+
+
+class PlanoDeEstudo(models.Model):
+
+    # administrador = models.CharField(max_length=255)
+    titulo = models.CharField(max_length=255)
+    publicacoes = models.ManyToManyField('Publicacao')
+
+    # Datas
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    #Relacionamentos
+    seguidores = models.ManyToManyField(AUTH_USER_MODEL)
+    administrador = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='fk_administrador')
+
+    class Meta:
+        verbose_name = "plano_de_estudo"
+        verbose_name_plural = "planos_de_estudo"
+
+    def __str__(self):
+        return self.titulo
+
+
+class Chamado(models.Model):
+
+    titulo = models.CharField(max_length=255)
+    is_resolvido = models.BooleanField(default=False)
+    mensagem = models.CharField(max_length=255)
+
+    # Relacionamentos
+    resolvido_por = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="resolvido_por")
+    aberto_por = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="aberto_por")
+
+    # Datas
+    respondido_em = models.DateTimeField(auto_now=True, auto_now_add=False)
+    aberto_em = models.DateTimeField(auto_now=False, auto_now_add=True)
+
+    class Meta:
+        verbose_name = "chamado"
+        verbose_name_plural = "chamados"
+
+    def __str__(self):
+        return self.titulo
+
+
+class Historico(models.Model):
+
+    publicacao = models.ForeignKey("Publicacao", on_delete=models.CASCADE, related_name="fk_publicacao")
+    avaliacao = models.CharField(max_length=255)
+
+    # Relacionamentos
+    usuario = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="fk_usuario")
+
+    # Datas
+    horario = models.DateTimeField(auto_now=False, auto_now_add=False)
+
+    class Meta:
+        verbose_name ="historico"
+        verbose_name_plural = "historicos"
+
+    def __str__(self):
+        return self.avaliacao
+
