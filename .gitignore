@@ -15,4 +15,4 @@ __pycache__/
 #Ignorando a pasta de migrations para evitar erros:
 migrations/
 #Não ignorando o identificador de pacote do python:
-!migrations/__init__.py
+# !migrations/__init__.py
