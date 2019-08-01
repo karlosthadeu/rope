@@ -11,3 +11,6 @@ __pycache__/
 
 #Ignorando pasta vscode:
 *.vscode
+
+#ignorando as migracoes
+*/migrations/0*
