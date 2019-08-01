@@ -13,6 +13,6 @@ __pycache__/
 *.vscode
 
 #Ignorando a pasta de migrations para evitar erros:
-*/migrations/*.py
+migrations/*
 #Não ignorando o identificador de pacote do python:
-!*/migrations/__init__.py
+!migrations/__init__.py
