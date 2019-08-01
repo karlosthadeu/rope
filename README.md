@@ -1,6 +1,3 @@
-# rope
-Rope
-
 <header style="text-align: center;">
     <h1>ROPE</h1>
     <small>Repositório de objetos de aprendizagem</small>
