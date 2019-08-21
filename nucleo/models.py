@@ -13,7 +13,7 @@ class Materia(models.Model):
     area_de_conhecimento = models.CharField(max_length=50)
 
     # Datas
-    id_usuario_responsavel = models.IntegerField()
+    usuario_responsavel = models.IntegerField()
     data_criacao = models.DateTimeField(auto_now_add=True)
 
     # Relacionamentos
@@ -28,14 +28,15 @@ class Materia(models.Model):
 
 
 class Publicacao(models.Model):
+    # Checado
 
     titulo = models.CharField(max_length=255)
     conteudo = models.TextField() # Ajeitar o editor aqui
     tags = models.CharField(max_length=255)
 
     #Chaves estrangeiras
-    usuario_email = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
-    materia_id = models.ForeignKey("Materia", on_delete=models.CASCADE)
+    usuario = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    materia = models.ForeignKey("Materia", on_delete=models.CASCADE)
 
     #Datas
     criado_em = models.DateTimeField(auto_now_add=True)
@@ -59,8 +60,19 @@ class PlanoDeEstudo(models.Model):
     criado_em = models.DateTimeField(auto_now_add=True)
 
     #Relacionamentos
-    seguidores = models.ManyToManyField(AUTH_USER_MODEL)
-    administrador = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='fk_administrador')
+    administrador_principal = models.ForeignKey(
+        to=AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        related_name='fk_administrador'
+    )
+    administradores = models.ManyToManyField(
+        to=AUTH_USER_MODEL, 
+        related_name='admistradores'
+    )
+    seguidores = models.ManyToManyField(
+        to=AUTH_USER_MODEL, 
+        related_name='seguidores'
+    )
 
     class Meta:
         verbose_name = "plano_de_estudo"
@@ -71,14 +83,25 @@ class PlanoDeEstudo(models.Model):
 
 
 class Chamado(models.Model):
-
+    # Checado
+    
     titulo = models.CharField(max_length=255)
     is_resolvido = models.BooleanField(default=False)
-    mensagem = models.CharField(max_length=255)
+    mensagem = models.TextField(max_length=255)
 
     # Relacionamentos
-    resolvido_por = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="resolvido_por")
-    aberto_por = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="aberto_por")
+    resolvido_por = models.ForeignKey(
+        to=AUTH_USER_MODEL,
+        on_delete=models.CASCADE, 
+        related_name="resolvido_por", 
+        null=True,
+        blank=True,
+    )
+    aberto_por = models.ForeignKey(
+        to=AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        related_name="aberto_por"
+    )
 
     # Datas
     respondido_em = models.DateTimeField(auto_now=True, auto_now_add=False)
@@ -93,15 +116,24 @@ class Chamado(models.Model):
 
 
 class Historico(models.Model):
+    # Checado
 
-    publicacao = models.ForeignKey("Publicacao", on_delete=models.CASCADE, related_name="fk_publicacao")
-    avaliacao = models.CharField(max_length=255)
+    avaliacao = models.DecimalField(max_digits=2, decimal_places=1)
 
     # Relacionamentos
-    usuario = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="fk_usuario")
-
+    usuario = models.ForeignKey(
+        to=AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        related_name="fk_usuario"
+    )
+    publicacao = models.ForeignKey(
+        to="Publicacao", 
+        on_delete=models.CASCADE, 
+        related_name="fk_publicacao"
+    )
+    
     # Datas
-    horario = models.DateTimeField(auto_now=False, auto_now_add=False)
+    horario = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     class Meta:
         verbose_name ="historico"
@@ -110,3 +142,32 @@ class Historico(models.Model):
     def __str__(self):
         return self.avaliacao
 
+
+class Simulado(models.Model):
+    is_cronometrado = models.BooleanField(default=False)
+    tempo = models.IntegerField('minutos')
+
+    class Meta:
+        verbose_name = 'simulado'
+        verbose_name_plural = 'simulados'
+
+
+class Questao(models.Model):
+    enunciado = models.TextField()
+    resumo_do_enunciado = models.CharField(max_length=255)
+    opcaoa = models.TextField()
+    opcaob = models.TextField()
+    opcaoc = models.TextField()
+    opcaod = models.TextField()
+    opcaoe = models.TextField()
+    alternativa_correta = models.CharField(max_length=1)
+
+    # Relacionamentos
+    simulado = models.ManyToManyField("Simulado", related_name="fk_simulado")
+
+    class Meta:
+        verbose_name='questao'
+        verbose_name_plural='questoes'
+
+    def __str__(self):
+        return self.resumo_do_enunciado
