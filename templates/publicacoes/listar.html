@@ -1,0 +1,47 @@
+{% extends 'principal/template.html' %}
+
+<!-- Página de teste -->
+
+{% block 'content' %}
+
+<div class="container py-4">
+    <h1>Lista de Postagens</h1>
+    <a href="{% url 'publicacoes_criar' %}" class="btn btn-success mb-3"> Nova publicação</a>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 10%;">#</th>
+                            <th scope="col" style="width: 30%;">Título</th>
+                            <th scope="col" style="width: 10%;">Tags</th>
+                            <th scope="col" style="width: 25%;">Autor</th>
+                            <th class="col" style="width: 10%;">Matéria</th>
+                            <th class="col" style="width: 5%;"></th>
+                            <th class="col" style="width: 5%;"></th>
+                            <th class="col" style="width: 5%;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for publicacao in publicacoes %}
+                        <tr>
+                            <th scope="row">{{publicacao.id}}</th>
+                            <td>{{publicacao.titulo}}</td>
+                            <td>{{publicacao.tags}}</td>
+                            <td>{{publicacao.usuario.nome}}</td>
+                            <td>{{publicacao.materia}}</td>
+                            <td><a href="{% url 'publicacoes_visualizar' publicacao.id  %}" class="btn btn-secondary"> Visualizar </a></td>
+                            <td><a href="{% url 'publicacoes_modificar' publicacao.id  %}" class="btn btn-warning"> Modificar </a></td>
+                            <td><a href="{% url 'publicacoes_apagar' publicacao.id  %}" class="btn btn-danger"> Apagar </a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

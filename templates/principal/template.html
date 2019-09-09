@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/geral.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+    {% block 'styles' %}{% endblock %}
+    <title>ROPE - {{titulo}}</title>
+</head>
+
+<body class="bg-secondary">
+    <div id="fixos">
+        <!-- navbar -->
+        <nav id="navbar-superior" class="navbar navbar-expand-md p-2 navbar-light bg-white p-3"
+            style="border-bottom: 1px rgba(0, 0, 0, 0.1) solid;">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="#">
+                    <i class="fa d-inline fa-lg fa-search"></i>
+                    <b> ROPE</b>
+                </a>
+                <button class="navbar-toggler navbar-toggler-right border-0 p-2 bg-light" type="button"
+                    data-toggle="collapse" data-target="#navbar4" style="">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse py-2" id="navbar4">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <form class="form-inline d-flex justify-content-center m-0">
+                                <div class="input-group">
+                                    <input type="email" class="form-control" placeholder="Your email" id="form1"
+                                        style="width: 300px;">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary px-3" type="button"><i
+                                                class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"> <a class="nav-link" href="#">Features</a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="#">About</a> </li>
+                        {% if user %}
+                            <li class="nav-item"> <a class="nav-link text-success" href="#">{{user.nome}} - sair</a> </li>
+                        {% else %}
+                            <li class="nav-item"> <a class="nav-link text-success" href="#">Entrar</a> </li>
+                        {% endif %}
+                        
+                        <li class="nav-item"> <button id="btn-lateral" class="btn btn-success">LATERAL</button> </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Lateral -->
+        <div id="lateral">
+            <div id="barra" class="bg-success lateral-escondida">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusamus atque, tempore sint quo, minus
+                molestiae
+                vitae odio harum distinctio soluta velit. Ipsa quisquam atque quod provident mollitia optio nemo.
+            </div>
+            <div id="botoes">
+                <button id="btn-materias" class="btn btn-light">MATÉRIAS</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteudo -->
+    <div class="p-0" id="nav-space">
+        <div class="container-fluid bg-white p-3">
+            {% block 'content' %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <div class="py-3 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-6 p-3">
+                    <h5> <b>Main</b> </h5>
+                    <ul class="list-unstyled">
+                        <li> <a href="#">Home</a> </li>
+                        <li> <a href="#">Features</a> </li>
+                        <li> <a href="#">Pricing</a> </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-6 p-3">
+                    <h5> <b>Others</b> </h5>
+                    <ul class="list-unstyled">
+                        <li> <a href="#">FAQ</a> </li>
+                        <li> <a href="#">Resources</a> </li>
+                        <li> <a href="#">Career</a> </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 p-3">
+                    <h5> <b>About</b> </h5>
+                    <p class="mb-0"> I am alone, and feel the charm of existence in this spot, which was created for the
+                        bliss of
+                        souls.</p>
+                </div>
+                <div class="col-lg-3 col-md-6 p-3">
+                    <h5> <b>Follow us</b> </h5>
+                    <div class="row">
+                        <div class="col-md-12 d-flex align-items-center justify-content-between my-2"> <a href="#">
+                                <i class="d-block fa fa-facebook-official text-muted fa-lg mr-2"></i>
+                            </a> <a href="#">
+                                <i class="d-block fa fa-instagram text-muted fa-lg mx-2"></i>
+                            </a> <a href="#">
+                                <i class="d-block fa fa-google-plus-official text-muted fa-lg mx-2"></i>
+                            </a> <a href="#">
+                                <i class="d-block fa fa-pinterest-p text-muted fa-lg mx-2"></i>
+                            </a> <a href="#">
+                                <i class="d-block fa fa-reddit text-muted fa-lg mx-2"></i>
+                            </a> <a href="#">
+                                <i class="d-block fa fa-twitter text-muted fa-lg ml-2"></i>
+                            </a> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="mb-0 mt-2">© 2014-2018 Pingendo. All rights reserved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'js/geral.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+    {% block 'scripts' %}{% endblock %}
+</body>
+</html>

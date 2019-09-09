@@ -7,6 +7,7 @@
         <h2>Bibliotecas</h3>
         <ul>
             <li> django | pip install django  </li>
+            <li> bootstrap forms | pip install django-crispy-forms </li>
         </ul>
     </div>
 </main>
