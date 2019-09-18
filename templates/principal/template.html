@@ -47,9 +47,9 @@
                         <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
                         <li class="nav-item"> <a class="nav-link" href="#">About</a> </li>
                         {% if user %}
-                            <li class="nav-item"> <a class="nav-link text-success" href="#">{{user.nome}} - sair</a> </li>
+                            <li class="nav-item"> <a class="nav-link text-success" href="{% url 'sair' %}">{{user.nome}} - sair</a> </li>
                         {% else %}
-                            <li class="nav-item"> <a class="nav-link text-success" href="#">Entrar</a> </li>
+                            <li class="nav-item"> <a class="nav-link text-success" href="{% url 'entrar' %}">Entrar</a> </li>
                         {% endif %}
                         
                         <li class="nav-item"> <button id="btn-lateral" class="btn btn-success">LATERAL</button> </li>

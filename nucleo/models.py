@@ -35,7 +35,7 @@ class Publicacao(models.Model):
     tags = models.CharField(max_length=255)
 
     #Chaves estrangeiras
-    usuario = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     materia = models.ForeignKey("Materia", on_delete=models.CASCADE)
 
     #Datas

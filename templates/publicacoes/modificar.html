@@ -7,8 +7,12 @@
 {% block 'content' %}
 
 <div class="container py-4">
-    <h1>{{titulo}}</h1>
-    <a href="{% url 'publicacoes_criar' %}" class="btn btn-success mb-3">{{titulo}}</a>
+    <h1>{{titulo}}: {{publicacao.titulo}}</h1>
+    <h6>Criado em: {{publicacao.criado_em}}</h6>
+    <h6>Atualizado em: {{publicacao.atualizado_em}}</h6>
+
+    <hr>
+    <!-- <a href="{% url 'publicacoes_criar' %}" class="btn btn-success mb-3">{{titulo}}</a> -->
 
     <form method="POST">
         {% csrf_token %}

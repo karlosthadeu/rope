@@ -3,7 +3,7 @@ venv/
 .env
 
 #Ignorando arquivos .sqlite3
-*.sqlite3
+# *.sqlite3
 
 #Ignorando arquivos .pyc e pychache
 *.pyc

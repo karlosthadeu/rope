@@ -31,6 +31,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     atualizado_por_ultimo_em = models.DateField(_('atualizado_por_ultimo'), auto_now_add=True)
     permissao = models.IntegerField(_('permissao'), default=0)
     is_professor = models.BooleanField('is_professor', default=False)
+    is_active = models.BooleanField('is_active', default=True)
 
     objects = UsuarioManager()
 

@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.views import View
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+
 # Models
 from .models import Publicacao as PublicacaoModel
 
@@ -33,6 +35,7 @@ class PlanosDeEstudosView():
 class PublicacoesView():
     # Na primeira verificação tá ok
     @staticmethod
+    @login_required(redirect_field_name='entrar')
     def listar(request):
         publicacoes = PublicacaoModel.objects.all()
         
@@ -45,11 +48,14 @@ class PublicacoesView():
     
     # Na primeira verificação tá ok
     @staticmethod
+    @login_required(redirect_field_name='entrar')
     def criar(request):
         form = PublicacoesForm(request.POST or None)
 
         if form.is_valid() :
-            form.save()
+            publicacao = form.save()
+            publicacao.usuario = request.user
+            publicacao.save()
 
             return redirect('publicacoes_listar')
 
@@ -63,6 +69,7 @@ class PublicacoesView():
     
     # Na primeira verificação tá ok
     @staticmethod
+    @login_required(redirect_field_name='entrar')
     def modificar(request, id):
         publicacao = get_object_or_404(PublicacaoModel, pk=id)
         form = PublicacoesForm(request.POST or None, instance=publicacao)
@@ -75,15 +82,18 @@ class PublicacoesView():
             dados = {
                 'titulo': 'Modificar Publicação',
                 'form': form,
+                'publicacao': publicacao,
             }
 
             return render(request, 'publicacoes/modificar.html', dados)
 
     @staticmethod
+    @login_required(redirect_field_name='entrar')
     def visualizar(request, id):
         return HttpResponse('Visualizar publicação')
     
     @staticmethod
+    @login_required(redirect_field_name='entrar')
     def apagar(request, id):
         publicacao = get_object_or_404(PublicacaoModel, pk=id)
         publicacao.delete()

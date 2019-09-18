@@ -4,4 +4,4 @@ from .models import Publicacao
 class PublicacoesForm(forms.ModelForm):
     class Meta:
         model = Publicacao
-        fields = ('titulo', 'conteudo', 'tags', 'usuario', 'materia')
+        fields = ('titulo', 'conteudo', 'tags', 'materia')
