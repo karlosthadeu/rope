@@ -14,9 +14,3 @@ __pycache__/
 
 #ignorando as migracoes
 */migrations/0*
-
-#ignorando avatares de usuário
-uploads/
-
-#mantendo 
-!uploads/avatares/default.jpg
