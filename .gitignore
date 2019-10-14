@@ -1,6 +1,7 @@
 #Ignorando a pasta do VirtualEnv
 venv/
 .env
+.venv
 
 #Ignorando arquivos .sqlite3
 # *.sqlite3
