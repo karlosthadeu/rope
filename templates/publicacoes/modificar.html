@@ -1,7 +1,5 @@
 {% extends 'principal/template.html' %}
 
-{% load crispy_forms_tags %}
-
 <!-- Página de teste -->
 
 {% block 'content' %}
@@ -16,7 +14,7 @@
 
     <form method="POST">
         {% csrf_token %}
-        {{ form|crispy }}
+        {{ form }}
 
         <a href="{% url 'publicacoes_listar' %}" class="btn btn-danger">Cancelar</a>
         <button type="submit" class="btn btn-success">Ok</button>

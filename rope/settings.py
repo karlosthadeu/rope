@@ -23,12 +23,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
+    'bootstrapform',
     'conta',
     'nucleo',
 ]
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -112,7 +110,13 @@ STATIC_URL = '/static/'
 # STATICFILES_ROOT = [r'estaticos']
 STATICFILES_DIRS = ['estaticos']
 
-
 #Login
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/conta/entrar'
+
+#Setando o formato de data para o brasileiro
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
+
+#Arquivos enviados
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')

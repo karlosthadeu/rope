@@ -1,6 +1,26 @@
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
+{% extends 'registration/template.html' %}
+
+{% load bootstrap %}
+
+{% block 'conteudo' %}
+
+<div class="p-4 sessao-formulario">
+  <h1>Olá! Bom te ter de volta.</h1>
+  <p class="texto-destaque">Entre com sua conta para poder criar, gerenciar planos de estudos e muito mais!</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <div id="inputs" class="form-group" class="row">
+
+        <!-- Depois incorporar aqui com a renderização do django -->
+        <input type="text" name="username" placeholder="Email" autofocus class="form-control" required id="id_username">
+        <input type="password" name="password" placeholder="Senha" class="form-control" required id="id_password">
+    </div>
+
+    <button class="btn btn-primary btn-form">Entrar</button>
+
+    <p class="texto-destaque">Novo por aqui? Crie já sua conta!</p>
+  </form>
+</div>
+
+{% endblock %}

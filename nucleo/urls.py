@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import PublicacoesView
+from .views import PublicacoesView, PrincipalView
 
 urlpatterns = [
+    path('', PrincipalView.inicio, name='principal_view_inicio'),
+
     # Publicações
     path('publicacoes/listar',                  PublicacoesView.listar,         name='publicacoes_listar'),
     path('publicacoes/criar',                   PublicacoesView.criar,          name='publicacoes_criar'),

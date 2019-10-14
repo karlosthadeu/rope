@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Título</title>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/principal.css' %}">
+
+    <!-- Icones de fonte -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+
+</head>
+
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <!-- Barra de navegação -->
+        <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <!-- Logo da navbar -->
+                <a class="navbar-brand" href="#">
+                    <img src="{% static 'img/logo_light.png' %}" alt="Logo">
+                </a>
+
+                <!-- Botão de expandir -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#itens-navbar"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alterna navegação">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Conteúdo da navbar -->
+                <div class="collapse navbar-collapse" id="itens-navbar">
+                    <form class="form-inline mr-auto caixa-de-busca">
+                        <input class="form-control" type="search" placeholder="Busca e aprenda!" aria-label="Pesquisar">
+                        <button class="btn btn-success" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item"> <!-- Áreas do conhecimento --> 
+                            <div class="dropdown">
+                                <button class="btn btn-light dropdown-toggle" type="button" id="areas-do-conhecimento"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Áreas do conhecimento
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="areas-do-conhecimento">
+                                    <button class="dropdown-item" type="button">Action</button>
+                                    <button class="dropdown-item" type="button">Another action</button>
+                                    <button class="dropdown-item" type="button">Something else here</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item"> <!-- Matérias -->  
+                            <div class="dropdown">
+                                <button class="btn btn-light dropdown-toggle" type="button" id="materias"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Matérias
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="materias">
+                                    <button class="dropdown-item" type="button">Action</button>
+                                    <button class="dropdown-item" type="button">Another action</button>
+                                    <button class="dropdown-item" type="button">Something else here</button>
+                                </div>
+                            </div>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"> <!-- Usuario -->  
+                            <div class="dropdown">
+                                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="usuario"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{user.nome}}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="usuario">
+                                    <button class="dropdown-item" type="button">Perfil</button>
+                                    <button class="dropdown-item" type="button">Planos de estudo</button>
+                                    <a href="{% url 'sair' %}" class="dropdown-item">Sair</a>
+                                </div>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'entrar' %}" class="btn btn-primary">Entrar</a>
+                        </li>
+
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="cabecalho" class="text-light bg-dark">
+            <img src="{% static 'img/logo_dark.png' %}" alt="">
+
+            <div class="container">
+                <form class="form-inline mr-auto caixa-de-busca caixa-de-busca-grande">
+                    <input stype="search" placeholder="Busca e aprenda!" aria-label="Pesquisar">
+                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>    
+                </form>
+            </div>
+
+            <hr>
+            <h1> ESTUDE, APRENDA, <b>SURPREENDA!</b> </h1>
+        </div>
+    </header>
+
+    <!-- Principal -->
+    <main>
+        <!-- Barra de áreas -->
+        <div class="container" id="areas">
+            <div class="row">
+                <div class="card"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- rodape -->
+    <footer></footer>
+
+    <!-- Sscripts -->
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/principal.js' %}"></script>
+</body>
+
+</html>

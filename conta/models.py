@@ -1,22 +1,29 @@
+from .util import renomear_foto
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 import re
+
+"""
+    Níveis de permissão
+        0 - usuário comum
+        1 - professor
+        2 - admnistrador
+        3 - super usuário
+"""
     
 # Create your models here.
 class UsuarioManager(BaseUserManager):
     def create_user(self, nome, email, data_de_nascimento, password):
         user = self.model(nome=nome, email=email, data_de_nascimento=data_de_nascimento, password=password)
         user.set_password(password)
-        user.is_superuser = False
         user.save(using=self._db)
         return user
 
     def create_superuser(self, nome, email, data_de_nascimento, password):
         user=self.create_user(nome=nome, email=email, data_de_nascimento=data_de_nascimento, password=password)
         user.is_active = True
-        user.is_superuser = True
-        user.permissao = 1
+        user.nivel_de_seguranca = 3
         user.save(using=self._db)
         return user
 
@@ -25,11 +32,13 @@ class UsuarioManager(BaseUserManager):
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
 
-    nome = models.CharField(_('nome'), max_length=255)
-    email = models.EmailField(_('email'), max_length=255, primary_key=True)
-    data_de_nascimento = models.DateField(_('data_de_nascimento'))
-    atualizado_por_ultimo_em = models.DateField(_('atualizado_por_ultimo'), auto_now_add=True)
-    permissao = models.IntegerField(_('permissao'), default=0)
+    avatar = models.ImageField('avatar', upload_to=renomear_foto, default='avatares_usuarios/default.jpg')
+    nome = models.CharField('nome', max_length=255)
+    email = models.EmailField('email', max_length=255, primary_key=True)
+    data_de_nascimento = models.DateField('data_de_nascimento')
+    atualizado_por_ultimo_em = models.DateField('atualizado_por_ultimo', auto_now_add=True)
+    entrou_em = models.DateField('atualizado_por_ultimo', auto_now_add=True)
+    nivel_de_seguranca = models.IntegerField('nivel_de_seguranca', default=0)
     is_professor = models.BooleanField('is_professor', default=False)
     is_active = models.BooleanField('is_active', default=True)
 
@@ -54,12 +63,9 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None):
         send_mail(subject, message, from_email, [self.email])
 
-    # def get(self, **extra_fields):
-    #     return self.objects.get(**extra_fields)
-
     @property
     def is_staff(self):
-        return self.nivelDeSeguranca == 2 if False else True
+        return self.nivel_de_seguranca == 3 if True else False
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"

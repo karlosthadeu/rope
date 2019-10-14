@@ -1,0 +1,49 @@
+.preenchido{
+    min-height: 100vh;
+}
+
+.flex-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sessao-formulario{
+    width: 500px;
+}
+
+.form-group{
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.form-control{
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 15px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.form-control:focus{
+    transition: 0.1s;
+}
+
+.btn-form{
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.texto-destaque{
+    margin-top: 20px;
+}
+
+@media(max-width: 768px){
+    .sessao-formulario{
+        width: 100%;
+    }
+}

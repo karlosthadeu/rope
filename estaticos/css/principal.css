@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
+/* 
+    Cores:
+        Verde: c
+        Escuro: #212121
+        Claro: #f2f2f2 
+*/
+
+* {
+    font-family: 'Nunito';
+    font-style: normal;
+}
+
+header, body{
+    padding: 0;
+    margin: 0;
+}
+
+#navbar {
+    position: fixed;
+    width: 100%;
+}
+
+#navbar a img {
+    width: 60px;
+}
+
+#itens-navbar * {
+    margin: 1px 1pxss;
+}
+
+
+.caixa-de-busca input, .caixa-de-busca button{
+    border: none;
+}
+
+.caixa-de-busca input{
+    border-radius: 7px 0px 0px 7px;
+    text-align: center;
+    width: 87%;
+}
+
+.caixa-de-busca button{
+    border-radius:  0px 7px 7px 0px ;
+}
+
+#cabecalho{
+    padding-top: 200px;
+    padding-bottom: 130px;
+    text-align: center;
+    background-image: url('../img/background.jpg');
+}
+
+#cabecalho h1{
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+#cabecalho img{
+    width: 15%;
+    margin-bottom: 30px;
+}
+
+#cabecalho h1{
+    color: #f2f2f2;
+}
+
+.caixa-de-busca-grande{
+    width: 100%;
+    margin-top: 20px 0;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.caixa-de-busca-grande *{
+    height: 50px;
+}
+
+.caixa-de-busca-grande input{
+    width: 70%;
+    font-size: 20px;
+    transition: 0.3s;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.caixa-de-busca-grande input:focus{
+    background-color: #ffffff;
+    transition: 0.3s;
+    width: 85%;
+}
+
+.caixa-de-busca-grande button{
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Corrigir isso daqui, tá gambiarrento */
+.caixa-de-busca-grande button i{
+    margin-top: 8px; 
+}
+
+
+hr{
+    background-color: #2ba33a;
+    border-width: 5px;
+    width: 50px;
+}
+
+@media (max-width: 576px){
+    #cabecalho img{
+        width: 40%;
+        margin-bottom: 30px;
+    }    
+
+    #cabecalho h1{
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 992px){
+    
+}

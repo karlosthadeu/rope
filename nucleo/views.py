@@ -12,12 +12,12 @@ from .forms import PublicacoesForm
 # Create your views here.
 class PrincipalView():
     @staticmethod
-    def index(request):
+    def inicio(request):
         dados = {
             'titulo': 'Página inicial',
         }
 
-        return render(request, 'publicacoes/listar.html', dados)
+        return render(request, 'principal/inicio.html', dados)
 
 class ChamadosView(View):
     def get(self, request, *args, **kwargs):
