@@ -15,3 +15,6 @@ __pycache__/
 
 #ignorando as migracoes
 */migrations/0*
+
+#Ignorando o .directory
+.directory
