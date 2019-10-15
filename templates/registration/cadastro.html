@@ -1,0 +1,35 @@
+{% extends 'registration/template.html' %}
+
+{% load bootstrap %}
+
+{% block 'conteudo' %}
+
+<div class="p-4 sessao-formulario">
+  <h1>Olá! Bom te ter de volta.</h1>
+  <p class="texto-destaque">Entre com sua conta para poder criar, gerenciar planos de estudos e muito mais!</p>
+
+  <form method="post" id="formulario_de_cadastro">
+    {% csrf_token %}
+    <div id="inputs" class="form-group" class="row">
+
+      {{form.nome}}
+      {{form.email}}
+      {{form.data_de_nascimento}}
+      {{form.senha}}
+      {{form.confirmacao_de_senha}}
+
+      <div class="input-group mb-3">
+        <div class="custom-file">
+          {{form.avatar}}
+          <label class="custom-file-label" for="upload_imagem" aria-describedby="inputGroupFileAddon02">Selecionar foto</label>
+        </div>
+      </div>
+    </div>
+
+    <button id="submit" class="btn btn-primary btn-form">Entrar</button>
+
+    <p class="texto-destaque">Novo por aqui? Crie já sua conta!</p>
+  </form>
+</div>
+
+{% endblock %}
