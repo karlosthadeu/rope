@@ -5,9 +5,11 @@ from django.contrib.auth.decorators import login_required
 
 # Models
 from .models import Publicacao as PublicacaoModel
+from .models import Materia as MateriaModel
 
 #Forms
 from .forms import PublicacoesForm
+from .forms import MateriaForm
 
 # Create your views here.
 class PrincipalView():
@@ -27,7 +29,49 @@ class HistoricosView():
     pass
 
 class MateriaisView():
-    pass
+    """
+        Gerenciamento de matérias.
+    """
+    @staticmethod
+    @login_required(redirect_field_name='entrar')
+    def modificar(request, id):
+        """
+        Modificar matéria.
+        """
+        materia = get_object_or_404(MateriaModel, pk=id)
+        form = MateriaForm(request.POST or None, instance=materia)
+
+        if form.is_valid():
+            form.save()
+            return redirect('')
+        else:
+            dados = {
+                'titulo': 'Modificar Matéria',
+                'form': form,
+                'materia': materia
+            }
+
+            return render(request, 'materias/modificar.html', dados)
+
+    @staticmethod
+    @login_required(redirect_field_name='entrar')
+    def criar(request):
+        """
+        Criar matérias.
+        Permissão: Administradores e super usuários.
+        """
+        form = MateriaForm(request.POST or None)
+
+        if form.is_valid():
+            form.save()
+            return redirect('')
+        else:
+            dados = {
+                'titulo': 'Criar Matéria',
+                'form': form
+            }
+
+            return render(request, 'materias/criar.html', dados)
 
 class PlanosDeEstudosView():
     pass
@@ -99,3 +143,11 @@ class PublicacoesView():
         publicacao.delete()
 
         return redirect('publicacoes_listar')
+
+    @staticmethod
+    @login_required(redirect_field_name='entrar')
+    def listarPorMateria():
+        """
+        Listar publicações com base em uma materia específica.
+        """
+        pass
