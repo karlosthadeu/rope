@@ -17,3 +17,7 @@ def renomear_foto(instance, filename):
     Disponível em:
         dangtrinh.com/2015/11/django-imagefield-rename-file-on-upload.html
 """
+
+
+
+

@@ -4,14 +4,20 @@ from rope.settings import DATE_INPUT_FORMATS
 
 class CadastroUsuarioForm(forms.ModelForm):
 
-    nome = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'placeholder': 'Nome completo'}))
-    email = forms.EmailField(max_length=255, widget=forms.TextInput(attrs={'placeholder' 'Email'}))
-    data_de_nascimento = forms.DateField(input_formats=DATE_INPUT_FORMATS)
-    senha = forms.CharField(max_length=255, widget=forms.PasswordInput(attrs={'placeholder': 'Confirmar senha'}))
-    confirmacaoDeSenha = forms.CharField(max_length=255, widget=forms.PasswordInput(attrs={'placeholder': 'Confirmar senha'}))
+    nome = forms.CharField(label='', max_length=255, widget=forms.TextInput(attrs={'placeholder': 'Nome completo', 'class': 'form-control'}))
+    email = forms.EmailField(label='', max_length=255, widget=forms.TextInput(attrs={'placeholder': 'Email', 'class': 'form-control'}))
+    data_de_nascimento = forms.DateField(
+        label='',
+        input_formats=DATE_INPUT_FORMATS,
+        widget=forms.DateInput(attrs={'placeholder': 'Data de nascimento', 'class': 'form-control'}),
+    )
+    senha = forms.CharField(label='', max_length=255, widget=forms.PasswordInput(attrs={'placeholder': 'Confirmar senha', 'class': 'form-control'}))
+    confirmacao_de_senha = forms.CharField(label='', max_length=255, widget=forms.PasswordInput(attrs={'placeholder': 'Confirmar senha', 'class': 'form-control'}))
+    avatar = forms.ImageField(widget=forms.FileInput(attrs={'id': 'upload', 'class': 'custom-file-input'}))
 
     class Meta:
         model = Usuario
+        fields = ('nome', 'email', 'data_de_nascimento', 'senha', 'confirmacao_de_senha', 'avatar')
 
     def clean_password2(self):
         """
@@ -19,19 +25,22 @@ class CadastroUsuarioForm(forms.ModelForm):
         """
 
         senha = self.cleaned_data.get("senha")
-        confirmacaoDeSenha = self.cleaned_data.get("confirmacaoDeSenha")
+        confirmacao_de_senha = self.cleaned_data.get("confirmacao_de_senha")
 
-        if senha and confirmacaoDeSenha and senha != confirmacaoDeSenha:
+        if senha and confirmacao_de_senha and senha != confirmacao_de_senha:
             raise forms.ValidationError("As senhas não correspondem.")
 
-        return confirmacaoDeSenha
+        return confirmacao_de_senha
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
-
-        
+        user.set_password(self.cleaned_data["senha"])
 
         if commit:
             user.save()
         return user
+
+    
+
+
+
