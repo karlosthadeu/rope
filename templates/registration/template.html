@@ -14,7 +14,8 @@
 <body>
     <div class="container-fluid p-0">
         <div class="row preenchido m-0">
-            <div class="col-md-7 col-sm-12 flex-center">
+            <div class="col-md-7 col-sm-12 flex-center p-5">
+                <img src="{% static 'img/logo_light.png' %}" class="logo" alt="Logo ROPE">
                 {% block 'conteudo' %}
                 {% endblock %}
             </div>
@@ -24,6 +25,7 @@
     </div>
 
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/registro.js' %}"></script>
 </body>
 </html>

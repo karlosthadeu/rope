@@ -125,7 +125,7 @@ class PlanosDeEstudosView():
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
-    def alterar(request, id):
+    def modificar(request, id):
         """
             Modifica o plano de estudo
         """
@@ -147,15 +147,15 @@ class PlanosDeEstudosView():
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
-    def apagar_publicacao_do_Plano():
+    def apagar_publicacao(request, id):
         """
             Apaga uma publicação do plano de estudo
         """
-        pass
+        return redirect('em_construcao')
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
-    def adicionar_publicacao_ao_plano():
+    def adicionar_publicacao(request, id):
         """
             Adiciona uma publicação ao plano de estudo
         """
@@ -169,7 +169,7 @@ class PlanosDeEstudosView():
         pass
 
     @staticmethod
-    def visualizar():
+    def visualizar(request, id):
         """
             Visualizar o plano de estudo por completo 
         """

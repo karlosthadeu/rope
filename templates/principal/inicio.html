@@ -2,7 +2,6 @@
 <html lang="pt-br">
 
 <head>
-
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +11,7 @@
     <!-- Estilos -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/principal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
 
     <!-- Icones de fonte -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
@@ -42,7 +42,11 @@
                     </form>
 
                     <ul class="navbar-nav">
-                        <li class="nav-item"> <!-- Áreas do conhecimento --> 
+                        <li class="nav-item">
+                            <a href="{% url 'inicio' %}" class="btn btn-light">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <!-- Áreas do conhecimento -->
                             <div class="dropdown">
                                 <button class="btn btn-light dropdown-toggle" type="button" id="areas-do-conhecimento"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,7 +59,8 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="nav-item"> <!-- Matérias -->  
+                        <li class="nav-item">
+                            <!-- Matérias -->
                             <div class="dropdown">
                                 <button class="btn btn-light dropdown-toggle" type="button" id="materias"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,11 +74,12 @@
                             </div>
                         </li>
                         {% if user.is_authenticated %}
-                        <li class="nav-item"> <!-- Usuario -->  
+                        <li class="nav-item">
+                            <!-- Usuario -->
                             <div class="dropdown">
                                 <button class="btn btn-outline-primary dropdown-toggle" type="button" id="usuario"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{user.nome}}
+                                    {{ user.nome  }}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="usuario">
                                     <button class="dropdown-item" type="button">Perfil</button>
@@ -93,13 +99,14 @@
             </div>
         </nav>
 
-        <div id="cabecalho" class="text-light bg-dark">
+        <!-- Caixa de busca e banner -->
+        <div id="cabecalho" class="text-light parallax">
             <img src="{% static 'img/logo_dark.png' %}" alt="">
 
             <div class="container">
                 <form class="form-inline mr-auto caixa-de-busca caixa-de-busca-grande">
-                    <input stype="search" placeholder="Busca e aprenda!" aria-label="Pesquisar">
-                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>    
+                    <input stype="search" placeholder="Pesquise e aprenda!" aria-label="Pesquisar">
+                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
 
@@ -112,10 +119,59 @@
     <main>
         <!-- Barra de áreas -->
         <div class="container" id="areas">
-            <div class="row">
-                <div class="card"></div>
+            <div class="cartao-area">
+                <img src="{% static 'img/calculadora.svg' %}" alt="Ícone de calculadora">
+                <h2>C. exatas</h2>
+            </div>
+            <div class="cartao-area">
+                <img src="{% static 'img/quimica.svg' %}" alt="Ícone de calculadora">
+                <h2>C. da natureza</h2>
+            </div>
+            <div class="cartao-area">
+                <img src="{% static 'img/livro.svg' %}" alt="Ícone de calculadora">
+                <h2>C. humanas</h2>
+            </div>
+            <div class="cartao-area">
+                <img src="{% static 'img/mapa.svg' %}" alt="Ícone de calculadora">
+                <h2>Geografia</h2>
+            </div>
+            <div class="cartao-area">
+                <img src="{% static 'img/monitor.svg' %}" alt="Ícone de calculadora">
+                <h2>Informática</h2>
+            </div>
+            <div class="cartao-area">
+                <img src="{% static 'img/cristais.svg' %}" alt="Ícone de calculadora">
+                <h2>Mineração</h2>
             </div>
         </div>
+
+        <!-- Recentes -->
+        <div class="container objetos">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h3>Obj. adicionados recentemente</h3>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="bloco-de-cartoes">
+                {% for publicacao in publicacoes_mais_recentes %}
+                <div class="card">
+                    <img src="{{MEDIA_URL}}{{publicacao.miniatura}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{publicacao.titulo}}</h5>
+                        <p class="card-text">
+                            {{publicacao.resumo}}
+                        </p>
+                        <small class="text-muted">Publicado por <a href="#">{{publicacao.usuario.nome}}</a> em {{publicacao.criado_em}}.</small>
+                        <small class="text-muted">Avaliação: <b>{{publicacao.avaliacao}}</b></small>
+                        <a href="#" class="btn btn-primary">Visualizar objeto</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
 
     </main>
 

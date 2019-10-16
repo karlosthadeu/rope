@@ -2,6 +2,14 @@
     min-height: 100vh;
 }
 
+.pagina-em-construcao{
+    text-align: center;
+}
+
+.pagina-em-construcao h1{
+    margin-top: 30px;
+}
+
 .flex-center{
     display: flex;
     flex-direction: column;
@@ -40,6 +48,12 @@
 
 .texto-destaque{
     margin-top: 20px;
+}
+
+.logo{
+    width: 200px;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 @media(max-width: 768px){
