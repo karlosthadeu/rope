@@ -6,10 +6,12 @@ from django.contrib.auth.decorators import login_required
 # Models
 from .models import Publicacao as PublicacaoModel
 from .models import Materia as MateriaModel
+from .models import PlanoDeEstudo as PlanoDeEstudoModel
 
 #Forms
 from .forms import PublicacoesForm
 from .forms import MateriaForm
+from .forms import PlanoDeEstudoForm
 
 # Create your views here.
 class PrincipalView():
@@ -61,6 +63,7 @@ class MateriaisView():
         Permissão: Administradores e super usuários.
         """
         form = MateriaForm(request.POST or None)
+        
 
         if form.is_valid():
             form.save()
@@ -74,7 +77,81 @@ class MateriaisView():
             return render(request, 'materias/criar.html', dados)
 
 class PlanosDeEstudosView():
-    pass
+    """
+        Gerenciamento do plano de estudo
+    """
+
+    @staticmethod
+    @login_required(redirect_field_name='entrar')
+    def criar(request):
+        """
+            Cria uma plano de estudo 
+        """
+        
+        form = PlanoDeEstudoForm(request.POST or None)
+
+        if form.is_valid():
+            form.save()
+            return redirect('')
+        else:
+            dados = {
+                'titulo': 'Criar Plano De Estudo',
+                'form': form
+            }
+
+            return render(request, 'plano_de_estudo/criar.html', dados)
+
+    @staticmethod
+    @login_required(redirect_field_name='entrar')
+    def alterar(request, id):
+        """
+            Modifica o plano de estudo
+        """
+        
+        plano = get_object_or_404(PlanoDeEstudoModel, pk=id)
+        form = MateriaForm(request.POST or None, instance=plano)
+
+        if form.is_valid():
+            form.save()
+            return redirect('')
+        else:
+            dados = {
+                'titulo': 'Modificar Plano De Estudo',
+                'form': form,
+                'materia': plano
+            }
+
+            return render(request, 'plano_de_estudo/modificarNome.html', dados)
+
+    @staticmethod
+    @login_required(redirect_field_name='entrar')
+    def apagar_publicacao_do_Plano():
+        """
+            Apaga uma publicação do plano de estudo
+        """
+        pass
+
+    @staticmethod
+    @login_required(redirect_field_name='entrar')
+    def adicionar_publicacao_ao_plano():
+        """
+            Adiciona uma publicação ao plano de estudo
+        """
+        pass
+
+    @staticmethod
+    def listar():
+        """
+            Lista os planos de estudos existentes
+        """
+        pass
+
+    @staticmethod
+    def visualizar():
+        """
+            Visualizar o plano de estudo por completo 
+        """
+        pass
 
 class PublicacoesView():
     # Na primeira verificação tá ok
@@ -150,6 +227,7 @@ class PublicacoesView():
         """
         Listar publicações com base em uma materia específica.
         """
+<<<<<<< HEAD
         publicacoes = PublicacaoModel.objects.filter(MateriaForm__id = materia_id).order_by('-id')[0]
 
         dados = {
@@ -158,3 +236,6 @@ class PublicacoesView():
         }
 
         return 
+=======
+        pass
+>>>>>>> 75e1ca31600d46b9fdd2631c458bce682a498e6a
