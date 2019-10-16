@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.views import View
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from rope.settings import MEDIA_URL
 
 # Models
 from .models import Publicacao as PublicacaoModel
@@ -15,15 +16,36 @@ from .forms import MateriaForm
 class PrincipalView():
     @staticmethod
     def inicio(request):
+        publicacoes_mais_recentes = PublicacaoModel.objects.all();
+
         dados = {
             'titulo': 'Página inicial',
+            'publicacoes_mais_recentes': publicacoes_mais_recentes,
+            'MEDIA_URL': MEDIA_URL,
         }
 
         return render(request, 'principal/inicio.html', dados)
 
-class ChamadosView(View):
-    def get(self, request, *args, **kwargs):
-        return HttpResponse('Hello World')
+    @staticmethod
+    def pagina_em_construcao(request):
+        return render(request, 'principal/em_construcao.html')
+
+class ChamadosView():
+    @staticmethod
+    def criar(request):
+        return redirect('em_construcao')
+
+    @staticmethod
+    def fechar(request, id):
+        return redirect('em_construcao')
+
+    @staticmethod
+    def responder(request, id):
+        return redirect('em_construcao')
+
+    @staticmethod
+    def avaliar(request, id):
+        return redirect('em_construcao')
 
 class HistoricosView():
     pass
