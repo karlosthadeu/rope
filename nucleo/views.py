@@ -6,10 +6,12 @@ from django.contrib.auth.decorators import login_required
 # Models
 from .models import Publicacao as PublicacaoModel
 from .models import Materia as MateriaModel
+from .models import PlanoDeEstudo as PlanoDeEstudoModel
 
 #Forms
 from .forms import PublicacoesForm
 from .forms import MateriaForm
+from .forms import PlanoDeEstudoForm
 
 # Create your views here.
 class PrincipalView():
@@ -74,7 +76,67 @@ class MateriaisView():
             return render(request, 'materias/criar.html', dados)
 
 class PlanosDeEstudosView():
-    pass
+    """
+        Gerenciamento do plano de estudo
+    """
+
+    @staticmethod
+    @login_required(redirect_field_name='entrar')
+    def criar(request):
+        """
+            Cria uma plano de estudo 
+        """
+        
+        form = PlanoDeEstudoForm(request.POST or None)
+
+        if form.is_valid():
+            form.save()
+            return redirect('')
+        else:
+            dados = {
+                'titulo': 'Criar Plano De Estudo',
+                'form': form
+            }
+
+            return render(request, 'planoDeEstudo/criar.html', dados)
+
+    @staticmethod
+    @login_required(redirect_field_name='entrar')
+    def modificarNome():
+        """
+            Modifica o plano de estudo
+        """
+        pass
+    
+    @staticmethod
+    @login_required(redirect_field_name='entrar')
+    def apagar_publicacao_do_Plano():
+        """
+            Apaga uma publicação do plano de estudo
+        """
+        pass
+
+    @staticmethod
+    @login_required(redirect_field_name='entrar')
+    def adicionar_publicacao_ao_plano():
+        """
+            Adiciona uma publicação ao plano de estudo
+        """
+        pass
+
+    @staticmethod
+    def listar():
+        """
+            Lista os planos de estudos existentes
+        """
+        pass
+
+    @staticmethod
+    def visualizar():
+        """
+            Visualizar o plano de estudo por completo 
+        """
+        pass
 
 class PublicacoesView():
     # Na primeira verificação tá ok
