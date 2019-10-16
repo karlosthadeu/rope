@@ -63,6 +63,7 @@ class MateriaisView():
         Permissão: Administradores e super usuários.
         """
         form = MateriaForm(request.POST or None)
+        
 
         if form.is_valid():
             form.save()
@@ -98,16 +99,30 @@ class PlanosDeEstudosView():
                 'form': form
             }
 
-            return render(request, 'planoDeEstudo/criar.html', dados)
+            return render(request, 'plano_de_estudo/criar.html', dados)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
-    def modificarNome():
+    def alterar(request, id):
         """
             Modifica o plano de estudo
         """
-        pass
-    
+        
+        plano = get_object_or_404(PlanoDeEstudoModel, pk=id)
+        form = MateriaForm(request.POST or None, instance=plano)
+
+        if form.is_valid():
+            form.save()
+            return redirect('')
+        else:
+            dados = {
+                'titulo': 'Modificar Plano De Estudo',
+                'form': form,
+                'materia': plano
+            }
+
+            return render(request, 'plano_de_estudo/modificarNome.html', dados)
+
     @staticmethod
     @login_required(redirect_field_name='entrar')
     def apagar_publicacao_do_Plano():
