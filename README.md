@@ -1,5 +1,3 @@
 <h1>ROPE</h1>
 
-- George Washington
-- John Adams
-- Thomas Jefferson
+<p>Para resolver as dependências execute: <code>pip install .</code></p>
