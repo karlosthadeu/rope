@@ -143,7 +143,7 @@ class PlanosDeEstudosView():
                 'materia': plano
             }
 
-            return render(request, 'plano_de_estudo/modificarNome.html', dados)
+            return render(request, 'plano_de_estudo/modificar.html', dados)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
