@@ -43,7 +43,7 @@ class MateriaisView():
 
         if form.is_valid():
             form.save()
-            return redirect('')
+            return HttpResponse('Deu certo') # Alterar essa linha para redirecionar para uma página específica.
         else:
             dados = {
                 'titulo': 'Modificar Matéria',
@@ -64,7 +64,7 @@ class MateriaisView():
 
         if form.is_valid():
             form.save()
-            return redirect('')
+            return HttpResponse('Deu certo') # Alterar essa linha para redirecionar para uma página específica.
         else:
             dados = {
                 'titulo': 'Criar Matéria',
@@ -146,8 +146,15 @@ class PublicacoesView():
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
-    def listarPorMateria():
+    def listar_por_materia(request, materia_id):
         """
         Listar publicações com base em uma materia específica.
         """
-        pass
+        publicacoes = PublicacaoModel.objects.filter(MateriaForm__id = materia_id).order_by('-id')[0]
+
+        dados = {
+            'titulo': 'Listar Publicações por matéria',
+            'publicacoes': publicacoes,
+        }
+
+        return 
