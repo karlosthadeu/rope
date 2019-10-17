@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PublicacoesView, PrincipalView, ChamadosView, PlanosDeEstudosView
+from .views import PublicacoesView, PrincipalView, ChamadosView, PlanosDeEstudosView, MateriasView
 
 """
     Em paths especiais, como os de modificação e apagar, tem que ser verificado se o usuário que está
@@ -21,6 +21,8 @@ urlpatterns = [
     path('publicacoes/modificar/<str:id>',          PublicacoesView.modificar,      name='publicacoes_modificar'),
     path('publicacoes/visualizar/<str:id>',         PublicacoesView.visualizar,     name='publicacoes_visualizar'),
     path('publicacoes/apagar/<str:id>',             PublicacoesView.apagar,         name='publicacoes_apagar'),
+    # Listagem de publicação por matéria:
+    path('publicacoes/listar/materias/<str:materia_id>', PublicacoesView.listar_por_materia, name='publicacoes_listar_por_materia'),
 
     # Planos de estudo:
     path('planos_de_estudo/criar',                  PlanosDeEstudosView.criar,                  name='planos_de_estudo_criar'),
@@ -35,4 +37,9 @@ urlpatterns = [
     path('chamados/responder/<int:id>',         ChamadosView.responder,         name='chamados_responder'),
     path('chamados/fechar/<int:id>',            ChamadosView.fechar,            name='chamados_fechar'),
     path('chamados/avaliar/<int:id>',           ChamadosView.avaliar,           name='chamados_avaliar'),
+
+    # Materias:
+    path('materias/modificar/<str:id>',         MateriasView.modificar,         name='materias_modificar'),
+    path('materias/criar',                      MateriasView.criar,             name='materias_criar'),
+    path('materias/listar/area_conhecimento/<str:area_conhecimento>',                      MateriasView.listar_por_area_de_conhecimento,             name='materias_criar')
 ]

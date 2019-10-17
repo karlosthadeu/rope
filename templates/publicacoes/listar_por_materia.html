@@ -4,19 +4,19 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
+        <title>Listar por materia</title>
     </head>
     <body>
 
         <h2>{{titulo}}</h2>
 
-        <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-
-        {{form}}
-
         
-        <button type="submit">Modificar</button>
+        {% for publicacao in publicacoes %}
+            {{publicacao.titulo}} <br />
+            {{ publicacao.resumo }} <br />
+
+            <br />
+        {% endfor %}
         
     </body>
 </html>

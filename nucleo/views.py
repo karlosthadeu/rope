@@ -52,7 +52,7 @@ class ChamadosView():
 class HistoricosView():
     pass
 
-class MateriaisView():
+class MateriasView():
     """
         Gerenciamento de matérias.
     """
@@ -97,6 +97,18 @@ class MateriaisView():
             }
 
             return render(request, 'materias/criar.html', dados)
+
+    @staticmethod
+    @login_required(redirect_field_name='entrar')
+    def listar_por_area_de_conhecimento(request, area_conhecimento):
+        materias = MateriaModel.objects.filter(area_de_conhecimento = area_conhecimento).order_by('-id')
+
+        dados = {
+            'titulo': f'Listagem de Matérias: {area_conhecimento}',
+            'materias': materias
+        }
+
+        return render(request, 'materias/listar_por_area_conhecimento.html', dados)
 
 class PlanosDeEstudosView():
     """
@@ -253,11 +265,12 @@ class PublicacoesView():
         """
         Listar publicações com base em uma materia específica.
         """
-        publicacoes = PublicacaoModel.objects.filter(MateriaForm__id = materia_id).order_by('-id')[0]
+        materia = get_object_or_404(MateriaModel, pk=materia_id)
+        publicacoes = PublicacaoModel.objects.filter(materia = materia_id).order_by('-id')
 
         dados = {
             'titulo': 'Listar Publicações por matéria',
             'publicacoes': publicacoes,
         }
 
-        return render(request, 'materias/listar.html', dados)
+        return render(request, 'publicacoes/listar_por_materia.html', dados)
