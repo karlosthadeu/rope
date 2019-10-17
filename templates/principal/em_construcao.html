@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/principal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/conta.css' %}">
+    <title>{{titulo}}</title>
+</head>
+<body>
+
+    <div class="preenchido flex-center p-3">
+        <div class="pagina-em-construcao">
+            <img src="{% static 'img/logo_light.png' %}" class="logo" alt="Em construção">
+            <h1>Olá, esta página está em construção.</h1>
+            <a href="{% url 'inicio' %}">Voltar para a página inicial</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -7,9 +7,15 @@
         Claro: #f2f2f2 
 */
 
+
+/* RESET DE CARACTERÍSTICAS */
 * {
     font-family: 'Nunito';
     font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6{
+    text-transform: uppercase;
 }
 
 header, body{
@@ -17,9 +23,11 @@ header, body{
     margin: 0;
 }
 
+/* BARRA DE NAVEGAÇÃO */
 #navbar {
     position: fixed;
     width: 100%;
+    z-index: 1;
 }
 
 #navbar a img {
@@ -31,6 +39,44 @@ header, body{
 }
 
 
+/* CONFIGURAÇÕES DE CABEÇALHO E BANNER */
+#cabecalho{
+    /* CONFIGURAÇÕES ANTIGAS */
+    /* 
+    padding-top: 200px;
+    padding-bottom: 130px;
+    text-align: center;
+     */
+
+    /* PARA ALTURA 100% */
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-image: url('../img/background.jpg');
+}
+
+#cabecalho img{
+    width: 15%;
+    margin-bottom: 30px;
+    margin-top: 70px;
+}
+
+#cabecalho h1{
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+#cabecalho h1{
+    color: #f2f2f2;
+}
+
+
+
+
+/* CAIXAS DE BUSCA */
 .caixa-de-busca input, .caixa-de-busca button{
     border: none;
 }
@@ -43,27 +89,6 @@ header, body{
 
 .caixa-de-busca button{
     border-radius:  0px 7px 7px 0px ;
-}
-
-#cabecalho{
-    padding-top: 200px;
-    padding-bottom: 130px;
-    text-align: center;
-    background-image: url('../img/background.jpg');
-}
-
-#cabecalho h1{
-    margin-top: 30px;
-    font-size: 20px;
-}
-
-#cabecalho img{
-    width: 15%;
-    margin-bottom: 30px;
-}
-
-#cabecalho h1{
-    color: #f2f2f2;
 }
 
 .caixa-de-busca-grande{
@@ -79,16 +104,18 @@ header, body{
 }
 
 .caixa-de-busca-grande input{
-    width: 70%;
+    width: 50%;
+    padding-left: 30px;
     font-size: 20px;
     transition: 0.3s;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.6);
+    text-align: left;
 }
 
 .caixa-de-busca-grande input:focus{
     background-color: #ffffff;
     transition: 0.3s;
-    width: 85%;
+    width: 60%;
 }
 
 .caixa-de-busca-grande button{
@@ -100,6 +127,50 @@ header, body{
 .caixa-de-busca-grande button i{
     margin-top: 8px; 
 }
+
+.nav-item{
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+
+
+/* BLOCO DE CARTÕES */
+
+.bloco-de-cartoes{
+    padding: 20px; 
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.bloco-de-cartoes .card{
+    width: 300px;
+    flex: 0 0 auto;
+    margin: 5px;
+}
+
+.bloco-de-cartoes .card .btn{
+    width: 100%;
+}
+
+.bloco-de-cartoes .card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bloco-de-cartoes .card-body .card-text{
+    text-align: justify;
+    text-indent: 50px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.bloco-de-cartoes .card-body .btn{
+    margin-top: 15px;
+}
+    
 
 
 hr{
@@ -117,8 +188,4 @@ hr{
     #cabecalho h1{
         font-size: 20px;
     }
-}
-
-@media (max-width: 992px){
-    
 }

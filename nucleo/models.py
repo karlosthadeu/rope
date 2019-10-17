@@ -1,3 +1,4 @@
+from .util import renomear_foto
 from django.db import models
 from rope.settings import AUTH_USER_MODEL
 
@@ -29,10 +30,24 @@ class Materia(models.Model):
 
 class Publicacao(models.Model):
     # Checado
-
-    titulo = models.CharField(max_length=255)
+    titulo = models.CharField(max_length=50)
+    resumo = models.CharField(
+        max_length=166, 
+        default="""
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500sLorem Ipsum i
+        """)
     conteudo = models.TextField() # Ajeitar o editor aqui
     tags = models.CharField(max_length=255)
+    miniatura = models.ImageField(
+        upload_to=renomear_foto, 
+        default='miniaturas_publicacoes/default.jpg' #Tirar o default na versão de produção
+    )
+    avaliacao = models.DecimalField(
+        max_digits=2, 
+        decimal_places=1, 
+        max_length=5,
+        default=0.0
+    )
 
     #Chaves estrangeiras
     usuario = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)

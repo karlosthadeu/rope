@@ -17,18 +17,11 @@
       {{form.data_de_nascimento}}
       {{form.senha}}
       {{form.confirmacao_de_senha}}
-
-      <div class="input-group mb-3">
-        <div class="custom-file">
-          {{form.avatar}}
-          <label class="custom-file-label" for="upload_imagem" aria-describedby="inputGroupFileAddon02">Selecionar foto</label>
-        </div>
-      </div>
     </div>
 
-    <button id="submit" class="btn btn-primary btn-form">Entrar</button>
+    <button id="submit" class="btn btn-primary btn-form">Criar conta</button>
 
-    <p class="texto-destaque">Novo por aqui? Crie já sua conta!</p>
+    <p class="texto-destaque">Já possui a sua? <a href="{% url 'entrar' %}">Entre com ela!</a></p>
   </form>
 </div>
 

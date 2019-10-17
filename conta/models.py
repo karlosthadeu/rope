@@ -1,4 +1,4 @@
-from .util import renomear_foto
+from nucleo.util import renomear_foto
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
@@ -11,7 +11,7 @@ import re
         2 - admnistrador
         3 - super usuário
 """
-    
+   
 # Create your models here.
 class UsuarioManager(BaseUserManager):
     def create_user(self, nome, email, data_de_nascimento, password):
@@ -32,15 +32,41 @@ class UsuarioManager(BaseUserManager):
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
 
-    avatar = models.ImageField('avatar', upload_to=renomear_foto, default='avatares_usuarios/default.jpg')
-    nome = models.CharField('nome', max_length=255)
-    email = models.EmailField('email', max_length=255, primary_key=True)
-    data_de_nascimento = models.DateField('data_de_nascimento')
-    atualizado_por_ultimo_em = models.DateField('atualizado_por_ultimo', auto_now_add=True)
-    entrou_em = models.DateField('atualizado_por_ultimo', auto_now_add=True)
-    nivel_de_seguranca = models.IntegerField('nivel_de_seguranca', default=0)
-    is_professor = models.BooleanField('is_professor', default=False)
-    is_active = models.BooleanField('is_active', default=True)
+    avatar = models.ImageField(
+        'avatar', 
+        upload_to=renomear_foto, 
+        default='avatares_usuarios/default.jpg'
+    )
+    nome = models.CharField(
+        'nome', 
+        max_length=255
+    )
+    email = models.EmailField(
+        'email', 
+        max_length=255, 
+        primary_key=True
+    )
+    data_de_nascimento = models.DateField(
+        'data_de_nascimento'
+    )
+    atualizado_por_ultimo_em = models.DateField(
+        'atualizado_por_ultimo', 
+        auto_now_add=True
+    )
+    entrou_em = models.DateField(
+        'atualizado_por_ultimo', 
+        auto_now_add=True
+    )
+    nivel_de_seguranca = models.IntegerField(
+        'nivel_de_seguranca', default=0)
+    is_professor = models.BooleanField(
+        'is_professor', 
+        default=False
+    )
+    is_active = models.BooleanField(
+        'is_active', 
+        default=True
+    )
 
     objects = UsuarioManager()
 
@@ -60,12 +86,9 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.nome
         
-    def email_user(self, subject, message, from_email=None):
-        send_mail(subject, message, from_email, [self.email])
-
     @property
     def is_staff(self):
-        return self.nivel_de_seguranca == 3 if True else False
+        return self.nivel_de_seguranca == 3 or self.nivel_de_seguranca == 2 if True else False
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"

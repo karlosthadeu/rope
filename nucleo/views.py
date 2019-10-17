@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.views import View
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from rope.settings import MEDIA_URL
 
 # Models
 from .models import Publicacao as PublicacaoModel
@@ -17,15 +18,36 @@ from .forms import PlanoDeEstudoForm
 class PrincipalView():
     @staticmethod
     def inicio(request):
+        publicacoes_mais_recentes = PublicacaoModel.objects.all();
+
         dados = {
             'titulo': 'Página inicial',
+            'publicacoes_mais_recentes': publicacoes_mais_recentes,
+            'MEDIA_URL': MEDIA_URL,
         }
 
         return render(request, 'principal/inicio.html', dados)
 
-class ChamadosView(View):
-    def get(self, request, *args, **kwargs):
-        return HttpResponse('Hello World')
+    @staticmethod
+    def pagina_em_construcao(request):
+        return render(request, 'principal/em_construcao.html')
+
+class ChamadosView():
+    @staticmethod
+    def criar(request):
+        return redirect('em_construcao')
+
+    @staticmethod
+    def fechar(request, id):
+        return redirect('em_construcao')
+
+    @staticmethod
+    def responder(request, id):
+        return redirect('em_construcao')
+
+    @staticmethod
+    def avaliar(request, id):
+        return redirect('em_construcao')
 
 class HistoricosView():
     pass
@@ -103,7 +125,7 @@ class PlanosDeEstudosView():
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
-    def alterar(request, id):
+    def modificar(request, id):
         """
             Modifica o plano de estudo
         """
@@ -121,23 +143,27 @@ class PlanosDeEstudosView():
                 'materia': plano
             }
 
-            return render(request, 'plano_de_estudo/modificarNome.html', dados)
+            return render(request, 'plano_de_estudo/modificar.html', dados)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
-    def apagar_publicacao_do_Plano():
+    def apagar_publicacao(request, id):
         """
             Apaga uma publicação do plano de estudo
         """
-        pass
+        
+        #retorna true caso excluir e false caso não
+        return PlanoDeEstudoModel.objects.delete(pk=id)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
-    def adicionar_publicacao_ao_plano():
+    def adicionar_publicacao(request, id):
         """
             Adiciona uma publicação ao plano de estudo
         """
-        pass
+        
+        #PlanoDeEstudoModel.object.save(id)
+        return redirect('em_construcao')
 
     @staticmethod
     def listar():
@@ -147,7 +173,7 @@ class PlanosDeEstudosView():
         pass
 
     @staticmethod
-    def visualizar():
+    def visualizar(request, id):
         """
             Visualizar o plano de estudo por completo 
         """
