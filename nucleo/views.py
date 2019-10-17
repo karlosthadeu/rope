@@ -161,7 +161,9 @@ class PlanosDeEstudosView():
         """
             Adiciona uma publicação ao plano de estudo
         """
-        pass
+        
+        #PlanoDeEstudoModel.object.save(id)
+        return redirect('em_construcao')
 
     @staticmethod
     def listar():
