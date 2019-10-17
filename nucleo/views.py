@@ -151,7 +151,9 @@ class PlanosDeEstudosView():
         """
             Apaga uma publicação do plano de estudo
         """
-        return redirect('em_construcao')
+        
+        #retorna true caso excluir e false caso não
+        return PlanoDeEstudoModel.objects.delete(pk=id)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
