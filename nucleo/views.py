@@ -227,7 +227,6 @@ class PublicacoesView():
         """
         Listar publicações com base em uma materia específica.
         """
-<<<<<<< HEAD
         publicacoes = PublicacaoModel.objects.filter(MateriaForm__id = materia_id).order_by('-id')[0]
 
         dados = {
@@ -235,7 +234,4 @@ class PublicacoesView():
             'publicacoes': publicacoes,
         }
 
-        return 
-=======
-        pass
->>>>>>> 75e1ca31600d46b9fdd2631c458bce682a498e6a
+        return render(request, 'materias/listar.html', dados)
