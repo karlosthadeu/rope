@@ -14,6 +14,13 @@ from .forms import PublicacoesForm
 from .forms import MateriaForm
 from .forms import PlanoDeEstudoForm
 
+#Constantes de roteamento
+PRINCIPAL = r'principal'
+MATERIAS = r'materias'
+EM_CONSTRUCAO = r'em_construcao'
+PLANOS_DE_ESTUDO = r'planos_de_estudo'
+PUBLICACOES = r'publicacoes'
+
 # Create your views here.
 class PrincipalView():
     @staticmethod
@@ -26,28 +33,28 @@ class PrincipalView():
             'MEDIA_URL': MEDIA_URL,
         }
 
-        return render(request, 'principal/inicio.html', dados)
+        return render(request, PRINCIPAL+'/inicio.html', dados)
 
     @staticmethod
     def pagina_em_construcao(request):
-        return render(request, 'principal/em_construcao.html')
+        return render(request, PRINCIPAL+'/em_construcao.html')
 
 class ChamadosView():
     @staticmethod
     def criar(request):
-        return redirect('em_construcao')
+        return redirect(EM_CONSTRUCAO)
 
     @staticmethod
     def fechar(request, id):
-        return redirect('em_construcao')
+        return redirect(EM_CONSTRUCAO)
 
     @staticmethod
     def responder(request, id):
-        return redirect('em_construcao')
+        return redirect(EM_CONSTRUCAO)
 
     @staticmethod
     def avaliar(request, id):
-        return redirect('em_construcao')
+        return redirect(EM_CONSTRUCAO)
 
 class HistoricosView():
     pass
@@ -75,7 +82,7 @@ class MateriasView():
                 'materia': materia
             }
 
-            return render(request, 'materias/modificar.html', dados)
+            return render(request, MATERIAS+'/modificar.html', dados)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
@@ -133,7 +140,7 @@ class PlanosDeEstudosView():
                 'form': form
             }
 
-            return render(request, 'plano_de_estudo/criar.html', dados)
+            return render(request, PLANOS_DE_ESTUDO+'/criar.html', dados)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
@@ -155,7 +162,7 @@ class PlanosDeEstudosView():
                 'materia': plano
             }
 
-            return render(request, 'plano_de_estudo/modificar.html', dados)
+            return render(request, PLANOS_DE_ESTUDO+'/modificar.html', dados)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
@@ -165,8 +172,11 @@ class PlanosDeEstudosView():
         """
         
         #retorna true caso excluir e false caso não
-        return PlanoDeEstudoModel.objects.delete(pk=id)
-
+        if PlanoDeEstudoModel.objects.delete(pk=id) :
+            return HttpResponse('ok') 
+        else :
+            return HttpResponse('Não deu certo')
+        
     @staticmethod
     @login_required(redirect_field_name='entrar')
     def adicionar_publicacao(request, id):
@@ -174,22 +184,29 @@ class PlanosDeEstudosView():
             Adiciona uma publicação ao plano de estudo
         """
         
-        #PlanoDeEstudoModel.object.save(id)
-        return redirect('em_construcao')
+        status = PlanoDeEstudoModel.object.save(id)
+
+        return render(request, PLANOS_DE_ESTUDO+'/adicionar_publicacao.html', status)
 
     @staticmethod
-    def listar():
+    def listar(request):
         """
             Lista os planos de estudos existentes
         """
-        pass
+        
+        planos_de_estudo = list(PlanoDeEstudoModel.object.all())
+
+        return render(request, PLANOS_DE_ESTUDO+'/listar.html')
 
     @staticmethod
     def visualizar(request, id):
         """
             Visualizar o plano de estudo por completo 
         """
-        pass
+        
+        plano_de_estudo = PlanoDeEstudoModel.object.all().filter(id=id)
+
+        return render(request, PLANOS_DE_ESTUDO+'/visualizar', plano_de_estudo)
 
 class PublicacoesView():
     # Na primeira verificação tá ok
@@ -203,7 +220,7 @@ class PublicacoesView():
             'publicacoes': publicacoes 
         }
 
-        return render(request, 'publicacoes/listar.html', dados)
+        return render(request, PUBLICACOES+'/listar.html', dados)
     
     # Na primeira verificação tá ok
     @staticmethod
@@ -224,7 +241,7 @@ class PublicacoesView():
                 'form': form,
             }
 
-            return render(request, 'publicacoes/criar.html', dados)
+            return render(request, PUBLICACOES+'/criar.html', dados)
     
     # Na primeira verificação tá ok
     @staticmethod
@@ -244,7 +261,7 @@ class PublicacoesView():
                 'publicacao': publicacao,
             }
 
-            return render(request, 'publicacoes/modificar.html', dados)
+            return render(request, PUBLICACOES+'/modificar.html', dados)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
@@ -273,4 +290,4 @@ class PublicacoesView():
             'publicacoes': publicacoes,
         }
 
-        return render(request, 'publicacoes/listar_por_materia.html', dados)
+        return render(request, PUBLICACOES+'/listar_por_materia.html', dados)
