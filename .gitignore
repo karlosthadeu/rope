@@ -10,6 +10,9 @@ __pycache__/
 #Ignorando pasta vscode:
 *.vscode
 
+#Ignorando banco de dados
+*.sqlite3
+
 #ignorando as migracoes
 */migrations/0*
 
