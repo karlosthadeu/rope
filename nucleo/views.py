@@ -218,7 +218,7 @@ class PlanosDeEstudosView():
         return render(request, diretorios.PLANOS_DE_ESTUDO+'/visualizar', dados)
 
 class PublicacoesView():
-    # Na primeira verificação tá ok
+    
     @staticmethod
     @login_required(redirect_field_name='entrar')
     def listar(request):
@@ -231,7 +231,7 @@ class PublicacoesView():
 
         return render(request, diretorios.PUBLICACOES+'/listar.html', dados)
     
-    # Na primeira verificação tá ok
+    
     @staticmethod
     @login_required(redirect_field_name='entrar')
     def criar(request):
@@ -252,7 +252,7 @@ class PublicacoesView():
 
             return render(request, diretorios.PUBLICACOES+'/criar.html', dados)
     
-    # Na primeira verificação tá ok
+    
     @staticmethod
     @login_required(redirect_field_name='entrar')
     def modificar(request, id):
