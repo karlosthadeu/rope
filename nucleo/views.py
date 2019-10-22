@@ -195,7 +195,7 @@ class PlanosDeEstudosView():
             Lista os planos de estudos existentes
         """
         
-        planos_de_estudo = list(PlanoDeEstudoModel.object.all())
+        planos_de_estudo = PlanoDeEstudoModel.objects.all()
 
         dados = {
             'planos_de_estudo': planos_de_estudo
