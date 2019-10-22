@@ -133,7 +133,7 @@ class PlanosDeEstudosView():
 
         if form.is_valid():
             form.save()
-            return redirect('')
+            return HttpResponse('Deu certo')
         else:
             dados = {
                 'titulo': 'Criar Plano De Estudo',
@@ -154,7 +154,7 @@ class PlanosDeEstudosView():
 
         if form.is_valid():
             form.save()
-            return redirect('')
+            return HttpResponse('Deu certo')
         else:
             dados = {
                 'titulo': 'Modificar Plano De Estudo',
@@ -186,7 +186,12 @@ class PlanosDeEstudosView():
         
         status = PlanoDeEstudoModel.object.save(id)
 
-        return render(request, PLANOS_DE_ESTUDO+'/adicionar_publicacao.html', status)
+        if status :
+            return HttpResponse('ok')
+        else :
+            return HttpResponse('Erro ao salvar')
+
+        #return render(request, PLANOS_DE_ESTUDO+'/adicionar_publicacao.html')
 
     @staticmethod
     def listar(request):
@@ -196,7 +201,11 @@ class PlanosDeEstudosView():
         
         planos_de_estudo = list(PlanoDeEstudoModel.object.all())
 
-        return render(request, PLANOS_DE_ESTUDO+'/listar.html')
+        dados = {
+            'planos_de_estudo': planos_de_estudo
+        }
+
+        return render(request, PLANOS_DE_ESTUDO+'/listar.html', dados)
 
     @staticmethod
     def visualizar(request, id):
@@ -206,7 +215,11 @@ class PlanosDeEstudosView():
         
         plano_de_estudo = PlanoDeEstudoModel.object.all().filter(id=id)
 
-        return render(request, PLANOS_DE_ESTUDO+'/visualizar', plano_de_estudo)
+        dados = {
+            'plano_de_estudo': plano_de_estudo
+        }
+
+        return render(request, PLANOS_DE_ESTUDO+'/visualizar', dados)
 
 class PublicacoesView():
     # Na primeira verificação tá ok
