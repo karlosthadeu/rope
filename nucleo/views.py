@@ -14,12 +14,7 @@ from .forms import PublicacoesForm
 from .forms import MateriaForm
 from .forms import PlanoDeEstudoForm
 
-#Constantes de roteamento
-PRINCIPAL = r'principal'
-MATERIAS = r'materias'
-EM_CONSTRUCAO = r'em_construcao'
-PLANOS_DE_ESTUDO = r'planos_de_estudo'
-PUBLICACOES = r'publicacoes'
+from . import diretorios
 
 # Create your views here.
 class PrincipalView():
@@ -33,28 +28,28 @@ class PrincipalView():
             'MEDIA_URL': MEDIA_URL,
         }
 
-        return render(request, PRINCIPAL+'/inicio.html', dados)
+        return render(request, diretorios.PRINCIPAL+'/inicio.html', dados)
 
     @staticmethod
     def pagina_em_construcao(request):
-        return render(request, PRINCIPAL+'/em_construcao.html')
+        return render(request, diretorios.PRINCIPAL+'/em_construcao.html')
 
 class ChamadosView():
     @staticmethod
     def criar(request):
-        return redirect(EM_CONSTRUCAO)
+        return redirect(diretorios.EM_CONSTRUCAO)
 
     @staticmethod
     def fechar(request, id):
-        return redirect(EM_CONSTRUCAO)
+        return redirect(diretorios.EM_CONSTRUCAO)
 
     @staticmethod
     def responder(request, id):
-        return redirect(EM_CONSTRUCAO)
+        return redirect(diretorios.EM_CONSTRUCAO)
 
     @staticmethod
     def avaliar(request, id):
-        return redirect(EM_CONSTRUCAO)
+        return redirect(diretorios.EM_CONSTRUCAO)
 
 class HistoricosView():
     pass
@@ -69,6 +64,7 @@ class MateriasView():
         """
         Modificar matéria.
         """
+
         materia = get_object_or_404(MateriaModel, pk=id)
         form = MateriaForm(request.POST or None, instance=materia)
 
@@ -82,7 +78,7 @@ class MateriasView():
                 'materia': materia
             }
 
-            return render(request, MATERIAS+'/modificar.html', dados)
+            return render(request, diretorios.MATERIAS+'/modificar.html', dados)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
@@ -103,7 +99,7 @@ class MateriasView():
                 'form': form
             }
 
-            return render(request, 'materias/criar.html', dados)
+            return render(request, diretorios.MATERIAS+'/criar.html', dados)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
@@ -115,7 +111,7 @@ class MateriasView():
             'materias': materias
         }
 
-        return render(request, 'materias/listar_por_area_conhecimento.html', dados)
+        return render(request, diretorios.MATERIAS+'/listar_por_area_conhecimento.html', dados)
 
 class PlanosDeEstudosView():
     """
@@ -140,7 +136,7 @@ class PlanosDeEstudosView():
                 'form': form
             }
 
-            return render(request, PLANOS_DE_ESTUDO+'/criar.html', dados)
+            return render(request, diretorios.PLANOS_DE_ESTUDO+'/criar.html', dados)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
@@ -162,7 +158,7 @@ class PlanosDeEstudosView():
                 'materia': plano
             }
 
-            return render(request, PLANOS_DE_ESTUDO+'/modificar.html', dados)
+            return render(request, diretorios.PLANOS_DE_ESTUDO+'/modificar.html', dados)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
@@ -205,7 +201,7 @@ class PlanosDeEstudosView():
             'planos_de_estudo': planos_de_estudo
         }
 
-        return render(request, PLANOS_DE_ESTUDO+'/listar.html', dados)
+        return render(request, diretorios.PLANOS_DE_ESTUDO+'/listar.html', dados)
 
     @staticmethod
     def visualizar(request, id):
@@ -219,7 +215,7 @@ class PlanosDeEstudosView():
             'plano_de_estudo': plano_de_estudo
         }
 
-        return render(request, PLANOS_DE_ESTUDO+'/visualizar', dados)
+        return render(request, diretorios.PLANOS_DE_ESTUDO+'/visualizar', dados)
 
 class PublicacoesView():
     # Na primeira verificação tá ok
@@ -233,7 +229,7 @@ class PublicacoesView():
             'publicacoes': publicacoes 
         }
 
-        return render(request, PUBLICACOES+'/listar.html', dados)
+        return render(request, diretorios.PUBLICACOES+'/listar.html', dados)
     
     # Na primeira verificação tá ok
     @staticmethod
@@ -254,7 +250,7 @@ class PublicacoesView():
                 'form': form,
             }
 
-            return render(request, PUBLICACOES+'/criar.html', dados)
+            return render(request, diretorios.PUBLICACOES+'/criar.html', dados)
     
     # Na primeira verificação tá ok
     @staticmethod
@@ -274,7 +270,7 @@ class PublicacoesView():
                 'publicacao': publicacao,
             }
 
-            return render(request, PUBLICACOES+'/modificar.html', dados)
+            return render(request, diretorios.PUBLICACOES+'/modificar.html', dados)
 
     @staticmethod
     @login_required(redirect_field_name='entrar')
@@ -303,4 +299,4 @@ class PublicacoesView():
             'publicacoes': publicacoes,
         }
 
-        return render(request, PUBLICACOES+'/listar_por_materia.html', dados)
+        return render(request, diretorios.PUBLICACOES+'/listar_por_materia.html', dados)

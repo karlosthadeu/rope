@@ -10,36 +10,38 @@ from .views import PublicacoesView, PrincipalView, ChamadosView, PlanosDeEstudos
 
 """
 
+#importando os diretórios 
+from . import diretorios
 
 urlpatterns = [
-    path('',                                        PrincipalView.inicio,               name='inicio'),
-    path('em_construcao',                           PrincipalView.pagina_em_construcao, name='em_construcao'),
+    path('',                                                       PrincipalView.inicio,               name='inicio'),
+    path(diretorios.EM_CONSTRUCAO,                           PrincipalView.pagina_em_construcao, name='em_construcao'),
 
     # Publicações:
-    path('publicacoes/listar',                      PublicacoesView.listar,         name='publicacoes_listar'),
-    path('publicacoes/criar',                       PublicacoesView.criar,          name='publicacoes_criar'),
-    path('publicacoes/modificar/<str:id>',          PublicacoesView.modificar,      name='publicacoes_modificar'),
-    path('publicacoes/visualizar/<str:id>',         PublicacoesView.visualizar,     name='publicacoes_visualizar'),
-    path('publicacoes/apagar/<str:id>',             PublicacoesView.apagar,         name='publicacoes_apagar'),
+    path(diretorios.PUBLICACOES+'/listar',                      PublicacoesView.listar,         name='publicacoes_listar'),
+    path(diretorios.PUBLICACOES+'/criar',                       PublicacoesView.criar,          name='publicacoes_criar'),
+    path(diretorios.PUBLICACOES+'/modificar/<str:id>',          PublicacoesView.modificar,      name='publicacoes_modificar'),
+    path(diretorios.PUBLICACOES+'/visualizar/<str:id>',         PublicacoesView.visualizar,     name='publicacoes_visualizar'),
+    path(diretorios.PUBLICACOES+'/apagar/<str:id>',             PublicacoesView.apagar,         name='publicacoes_apagar'),
     # Listagem de publicação por matéria:
-    path('publicacoes/listar/materias/<str:materia_id>', PublicacoesView.listar_por_materia, name='publicacoes_listar_por_materia'),
+    path(diretorios.PUBLICACOES+'/listar/materias/<str:materia_id>', PublicacoesView.listar_por_materia, name='publicacoes_listar_por_materia'),
 
     # Planos de estudo:
-    path('planos_de_estudo/criar',                  PlanosDeEstudosView.criar,                  name='planos_de_estudo_criar'),
-    path('planos_de_estudo/modificar',              PlanosDeEstudosView.modificar,              name='planos_de_estudo_modificar'),
-    path('planos_de_estudo/apagar_publicacao',      PlanosDeEstudosView.apagar_publicacao,      name='planos_de_estudo_apagar_publicacao'),
-    path('planos_de_estudo/adicionar_publicacao',   PlanosDeEstudosView.adicionar_publicacao,   name='planos_de_estudo_criar'),
-    path('planos_de_estudo/listar',                 PlanosDeEstudosView.listar,                 name='listar'),
-    path('planos_de_estudo/visualizar',             PlanosDeEstudosView.visualizar,             name='visualizar'),
+    path(diretorios.PLANOS_DE_ESTUDO+'/criar',                  PlanosDeEstudosView.criar,                  name='planos_de_estudo_criar'),
+    path(diretorios.PLANOS_DE_ESTUDO+'/modificar',              PlanosDeEstudosView.modificar,              name='planos_de_estudo_modificar'),
+    path(diretorios.PLANOS_DE_ESTUDO+'/apagar_publicacao',      PlanosDeEstudosView.apagar_publicacao,      name='planos_de_estudo_apagar_publicacao'),
+    path(diretorios.PLANOS_DE_ESTUDO+'/adicionar_publicacao',   PlanosDeEstudosView.adicionar_publicacao,   name='planos_de_estudo_criar'),
+    path(diretorios.PLANOS_DE_ESTUDO+'/listar',                 PlanosDeEstudosView.listar,                 name='listar'),
+    path(diretorios.PLANOS_DE_ESTUDO+'/visualizar',             PlanosDeEstudosView.visualizar,             name='visualizar'),
 
     # Chamados:
-    path('chamados/criar',                      ChamadosView.criar,             name='chamados_criar'),
-    path('chamados/responder/<int:id>',         ChamadosView.responder,         name='chamados_responder'),
-    path('chamados/fechar/<int:id>',            ChamadosView.fechar,            name='chamados_fechar'),
-    path('chamados/avaliar/<int:id>',           ChamadosView.avaliar,           name='chamados_avaliar'),
+    path(diretorios.CHAMADOS+'/criar',                      ChamadosView.criar,             name='chamados_criar'),
+    path(diretorios.CHAMADOS+'/responder/<int:id>',         ChamadosView.responder,         name='chamados_responder'),
+    path(diretorios.CHAMADOS+'/fechar/<int:id>',            ChamadosView.fechar,            name='chamados_fechar'),
+    path(diretorios.CHAMADOS+'/avaliar/<int:id>',           ChamadosView.avaliar,           name='chamados_avaliar'),
 
     # Materias:
-    path('materias/modificar/<str:id>',         MateriasView.modificar,         name='materias_modificar'),
-    path('materias/criar',                      MateriasView.criar,             name='materias_criar'),
-    path('materias/listar/area_conhecimento/<str:area_conhecimento>',                      MateriasView.listar_por_area_de_conhecimento,             name='materias_criar')
+    path(diretorios.MATERIAS+'/modificar/<str:id>',         MateriasView.modificar,         name='materias_modificar'),
+    path(diretorios.MATERIAS+'/criar',                      MateriasView.criar,             name='materias_criar'),
+    path(diretorios.MATERIAS+'/listar/area_conhecimento/<str:area_conhecimento>',                      MateriasView.listar_por_area_de_conhecimento,             name='materias_criar')
 ]
