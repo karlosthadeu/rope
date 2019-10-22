@@ -28,7 +28,7 @@ urlpatterns = [
 
     # Planos de estudo:
     path(diretorios.PLANOS_DE_ESTUDO+'/criar',                  PlanosDeEstudosView.criar,                  name='planos_de_estudo_criar'),
-    path(diretorios.PLANOS_DE_ESTUDO+'/modificar',              PlanosDeEstudosView.modificar,              name='planos_de_estudo_modificar'),
+    path(diretorios.PLANOS_DE_ESTUDO+'/modificar/<str:id>',              PlanosDeEstudosView.modificar,              name='planos_de_estudo_modificar'),
     path(diretorios.PLANOS_DE_ESTUDO+'/apagar_publicacao',      PlanosDeEstudosView.apagar_publicacao,      name='planos_de_estudo_apagar_publicacao'),
     path(diretorios.PLANOS_DE_ESTUDO+'/adicionar_publicacao',   PlanosDeEstudosView.adicionar_publicacao,   name='planos_de_estudo_criar'),
     path(diretorios.PLANOS_DE_ESTUDO+'/listar',                 PlanosDeEstudosView.listar,                 name='listar'),
