@@ -43,7 +43,8 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     )
     email = models.EmailField(
         'email', 
-        max_length=100
+        max_length=100,
+        unique=True
     )
     data_de_nascimento = models.DateField(
         'data_de_nascimento'
@@ -79,7 +80,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     objects = UsuarioManager()
 
-    USERNAME_FIELD = 'id'
+    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nome', 'data_de_nascimento']
     
     class Meta:
