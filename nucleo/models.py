@@ -5,16 +5,11 @@ from rope.settings import AUTH_USER_MODEL
 # Crie seus models aqui
 class Materia(models.Model):
 
-    """
-        Esse model aqui tá estranho. Apesar de estar de acordo com o modelo, acho que seria o campo "id_usuario_responsavel" 
-        o usuário que criou essa matéria. Temos que dar uma analisada.
-    """
-
-    nome = models.CharField(max_length=255)
-    area_de_conhecimento = models.CharField(max_length=50)
-
-    # Datas
+    nome = models.CharField(max_length=100)
+    area_de_conhecimento = models.CharField(max_length=64)
     usuario_responsavel = models.IntegerField()
+    
+    # Data
     data_criacao = models.DateTimeField(auto_now_add=True)
 
     # Relacionamentos
@@ -29,8 +24,8 @@ class Materia(models.Model):
 
 
 class Publicacao(models.Model):
-    # Checado
-    titulo = models.CharField(max_length=50)
+
+    titulo = models.CharField(max_length=64)
     resumo = models.CharField(
         max_length=166, 
         default="""
@@ -51,7 +46,7 @@ class Publicacao(models.Model):
 
     #Chaves estrangeiras
     usuario = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
-    materia = models.ForeignKey("Materia", on_delete=models.CASCADE)
+    materia = models.ForeignKey("nucleo.Materia", on_delete=models.CASCADE)
 
     #Datas
     criado_em = models.DateTimeField(auto_now_add=True)
@@ -68,8 +63,8 @@ class Publicacao(models.Model):
 class PlanoDeEstudo(models.Model):
 
     # administrador = models.CharField(max_length=255)
-    titulo = models.CharField(max_length=255)
-    publicacoes = models.ManyToManyField('Publicacao')
+    titulo = models.CharField(max_length=100)
+    publicacoes = models.ManyToManyField('nucleo.Publicacao')
 
     # Datas
     criado_em = models.DateTimeField(auto_now_add=True)
@@ -98,9 +93,7 @@ class PlanoDeEstudo(models.Model):
 
 
 class Chamado(models.Model):
-    # Checado
-    
-    titulo = models.CharField(max_length=255)
+    titulo = models.CharField(max_length=100)
     is_resolvido = models.BooleanField(default=False)
     mensagem = models.TextField(max_length=255)
 
@@ -131,8 +124,6 @@ class Chamado(models.Model):
 
 
 class Historico(models.Model):
-    # Checado
-
     avaliacao = models.DecimalField(max_digits=2, decimal_places=1)
 
     # Relacionamentos
@@ -170,15 +161,10 @@ class Simulado(models.Model):
 class Questao(models.Model):
     enunciado = models.TextField()
     resumo_do_enunciado = models.CharField(max_length=255)
-    opcaoa = models.TextField()
-    opcaob = models.TextField()
-    opcaoc = models.TextField()
-    opcaod = models.TextField()
-    opcaoe = models.TextField()
     alternativa_correta = models.CharField(max_length=1)
 
     # Relacionamentos
-    simulado = models.ManyToManyField("Simulado", related_name="fk_simulado")
+    simulado = models.ManyToManyField("nucleo.Simulado", related_name="fk_simulado")
 
     class Meta:
         verbose_name='questao'
@@ -186,3 +172,11 @@ class Questao(models.Model):
 
     def __str__(self):
         return self.resumo_do_enunciado
+
+class Alternativas(models.Model):
+    valor = models.TextField()
+    letra = models.CharField(max_length=50) # Para usos futuros
+
+    # Relacionamentos
+    questao = models.ForeignKey("nucleo.Questao", on_delete=models.CASCADE, related_name="fk_questao")
+
