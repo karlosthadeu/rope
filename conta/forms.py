@@ -21,7 +21,7 @@ class CadastroUsuarioForm(forms.ModelForm):
     senha = forms.CharField(
         label='', 
         max_length=255, 
-        widget=forms.PasswordInput(attrs={'placeholder': 'Confirmar senha', 'class': 'form-control'})
+        widget=forms.PasswordInput(attrs={'placeholder': 'Senha', 'class': 'form-control'})
     )
     confirmacao_de_senha = forms.CharField(
         label='', 
