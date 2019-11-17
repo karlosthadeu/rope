@@ -39,11 +39,11 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     )
     nome = models.CharField(
         'nome', 
-        max_length=255
+        max_length=100
     )
     email = models.EmailField(
         'email', 
-        max_length=255
+        max_length=100
     )
     data_de_nascimento = models.DateField(
         'data_de_nascimento'
