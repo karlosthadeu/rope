@@ -58,6 +58,15 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     )
     nivel_de_seguranca = models.IntegerField(
         'nivel_de_seguranca', default=0)
+
+    SEGURANCA_CHOICES = (
+        ('0', 'usuario comum'),
+        ('1', 'professor'),
+        ('2', 'admnistrador'),
+        ('3', 'super usuario')
+    )    
+    nivel_de_seguranca = models.CharField(max_length=1, choices=SEGURANCA_CHOICES)
+
     is_professor = models.BooleanField(
         'is_professor', 
         default=False
@@ -66,9 +75,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         'is_active', 
         default=True
     )
-    biografia = models.TextField(
-        "biografia"
-    )
+    biografia = models.TextField()
 
     objects = UsuarioManager()
 
