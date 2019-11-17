@@ -14,9 +14,9 @@ import re
    
 # Create your models here.
 class UsuarioManager(BaseUserManager):
-    def create_user(self, nome, email, data_de_nascimento, password):
-        user = self.model(nome=nome, email=email, data_de_nascimento=data_de_nascimento, password=password)
-        user.set_password(password)
+    def create_user(self, nome, email, data_de_nascimento, senha):
+        user = self.model(nome=nome, email=email, data_de_nascimento=data_de_nascimento, password=senha)
+        user.set_password(senha)
         user.save(using=self._db)
         return user
 
@@ -98,10 +98,3 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
         return True
-
-
-
-
-
-
-
