@@ -43,8 +43,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     )
     email = models.EmailField(
         'email', 
-        max_length=255, 
-        primary_key=True
+        max_length=255
     )
     data_de_nascimento = models.DateField(
         'data_de_nascimento'
@@ -67,6 +66,9 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         'is_active', 
         default=True
     )
+    biografia = models.TextField(
+        "biografia"
+    )
 
     objects = UsuarioManager()
 
@@ -78,7 +80,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = _('usuarios')
         
     def __str__(self):
-        return '%s - %s' % (self.nome, self.email)
+        return f"{self.nome} - {self.emal}"
 
     def get_full_name(self):
         return self.nome
@@ -88,7 +90,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         
     @property
     def is_staff(self):
-        return self.nivel_de_seguranca == 3 or self.nivel_de_seguranca == 2 if True else False
+        return self.nivel_de_seguranca == 3 or self.nivel_de_seguranca == 2
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
