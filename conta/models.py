@@ -79,7 +79,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     objects = UsuarioManager()
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'id'
     REQUIRED_FIELDS = ['nome', 'data_de_nascimento']
     
     class Meta:
