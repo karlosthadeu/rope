@@ -14,14 +14,14 @@ import re
    
 # Create your models here.
 class UsuarioManager(BaseUserManager):
-    def create_user(self, nome, email, data_de_nascimento, senha):
-        user = self.model(nome=nome, email=email, data_de_nascimento=data_de_nascimento, password=senha)
-        user.set_password(senha)
+    def create_user(self, nome, email, data_de_nascimento, password):
+        user = self.model(nome=nome, email=email, data_de_nascimento=data_de_nascimento, password=password)
+        user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, nome, email, data_de_nascimento, senha):
-        user=self.create_user(nome=nome, email=email, data_de_nascimento=data_de_nascimento, password=senha)
+    def create_superuser(self, nome, email, data_de_nascimento, password):
+        user=self.create_user(nome=nome, email=email, data_de_nascimento=data_de_nascimento, password=password)
         user.is_active = True
         user.nivel_de_seguranca = 3
         user.save(using=self._db)
