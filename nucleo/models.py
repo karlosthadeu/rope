@@ -7,7 +7,7 @@ class Materia(models.Model):
 
     nome = models.CharField(max_length=100)
     area_de_conhecimento = models.CharField(max_length=64)
-    usuario_responsavel = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    usuario_responsavel = models.ManyToManyField(AUTH_USER_MODEL)
     
     # Data
     data_criacao = models.DateTimeField(auto_now_add=True)
