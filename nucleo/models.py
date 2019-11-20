@@ -7,13 +7,13 @@ class Materia(models.Model):
 
     nome = models.CharField(max_length=100)
     area_de_conhecimento = models.CharField(max_length=64)
-    usuario_responsavel = models.IntegerField()
+    usuario_responsavel = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     
     # Data
     data_criacao = models.DateTimeField(auto_now_add=True)
 
     # Relacionamentos
-    usuarios = models.ManyToManyField(AUTH_USER_MODEL)
+    seguidores = models.ManyToManyField(AUTH_USER_MODEL)
 
     class Meta:
         verbose_name = "materia"
