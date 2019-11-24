@@ -7,13 +7,13 @@ class Materia(models.Model):
 
     nome = models.CharField(max_length=100)
     area_de_conhecimento = models.CharField(max_length=64)
-    usuario_responsavel = models.ManyToManyField(AUTH_USER_MODEL)
     
     # Data
     data_criacao = models.DateTimeField(auto_now_add=True)
 
     # Relacionamentos
-    seguidores = models.ManyToManyField(AUTH_USER_MODEL)
+    seguidores = models.ManyToManyField(AUTH_USER_MODEL, related_name='seguidores_materia')
+    usuario_responsavel = models.ManyToManyField(AUTH_USER_MODEL, related_name='materia_usuario_responsavel')
 
     class Meta:
         verbose_name = "materia"
@@ -64,7 +64,6 @@ class PlanoDeEstudo(models.Model):
 
     # administrador = models.CharField(max_length=255)
     titulo = models.CharField(max_length=100)
-    publicacoes = models.ManyToManyField('nucleo.Publicacao')
 
     # Datas
     criado_em = models.DateTimeField(auto_now_add=True)
@@ -77,12 +76,13 @@ class PlanoDeEstudo(models.Model):
     )
     administradores = models.ManyToManyField(
         to=AUTH_USER_MODEL, 
-        related_name='admistradores'
+        related_name='admistradores_do_plano'
     )
     seguidores = models.ManyToManyField(
         to=AUTH_USER_MODEL, 
-        related_name='seguidores'
+        related_name='seguidores_do_plano'
     )
+    publicacoes = models.ManyToManyField('nucleo.Publicacao',related_name='publicacoes_do_plano')
 
     class Meta:
         verbose_name = "plano_de_estudo"
@@ -164,7 +164,7 @@ class Questao(models.Model):
     alternativa_correta = models.CharField(max_length=1)
 
     # Relacionamentos
-    simulado = models.ManyToManyField("nucleo.Simulado", related_name="fk_simulado")
+    simulado = models.ManyToManyField("nucleo.Simulado", related_name="simulado_questoes")
 
     class Meta:
         verbose_name='questao'
@@ -178,5 +178,11 @@ class Alternativas(models.Model):
     letra = models.CharField(max_length=50) # Para usos futuros
 
     # Relacionamentos
-    questao = models.ForeignKey("nucleo.Questao", on_delete=models.CASCADE, related_name="fk_questao")
+    questao = models.ForeignKey("nucleo.Questao", on_delete=models.CASCADE, related_name="alternativas_da_questao")
 
+    class Meta:
+        verbose_name='alternativa'
+        verbose_name_plural='alternativas'
+
+    def __str__(self):
+        return self.valor
