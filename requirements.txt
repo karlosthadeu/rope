@@ -1,4 +1,4 @@
-Django==2.2.8
+Django==2.2.24
 django-bootstrap-form==3.4
 Pillow==6.2.0
 pytz==2019.3
